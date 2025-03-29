@@ -5,7 +5,9 @@ pipeline {
         ANSIBLE_PLAYBOOK = 'Ansible/playbooks/deploy_static_website.yml'
         ANSIBLE_HOSTS = 'Ansible/inventory/hosts.ini'
     }
-
+triggers {
+        pollSCM('H/2 * * * *') // Checks for new commits every 2 minutes
+    }
     stages {
         stage('Checkout') {
             steps {

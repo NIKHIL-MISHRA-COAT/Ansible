@@ -18,7 +18,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'ansible_sudo_pass', variable: 'ANSIBLE_BECOME_PASS')]) {
                         bat """
-                            wsl ansible-playbook "${ANSIBLE_PLAYBOOK}" -i "${ANSIBLE_HOSTS}" --ask-become-pass
+                            wsl ansible-playbook "${ANSIBLE_PLAYBOOK}" -i "${ANSIBLE_HOSTS}" --extra-vars 'ansible_become_pass=${ANSIBLE_BECOME_PASS}'
                         """
                     }
                 }

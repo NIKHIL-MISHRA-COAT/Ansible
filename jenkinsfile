@@ -9,17 +9,18 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/NIKHIL-MISHRA-COAT/Ansible.git'
+                git branch: 'main', url: 'https://github.com/NIKHIL-MISHRA-COAT/Ansible.git', credentialsId: 'yourGitCredentialId'
             }
         }
 
         stage('Deploy with Ansible (WSL)') {
             steps {
                 script {
-                    echo "Running Ansible Playbook within WSL..."
-                    bat """
-                        wsl ansible-playbook "${ANSIBLE_PLAYBOOK}" -i "${ANSIBLE_HOSTS}" 
-                    """
+                    withCredentials([string(credentialsId: 'ansible_sudo_pass', variable: 'ANSIBLE_BECOME_PASS')]) {
+                        bat """
+                            wsl ansible-playbook "${ANSIBLE_PLAYBOOK}" -i "${ANSIBLE_HOSTS}" --ask-become-pass
+                        """
+                    }
                 }
             }
         }

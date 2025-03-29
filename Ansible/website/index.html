@@ -3,20 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Ansible Deployment</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <Script>
+const form = document.getElementById('registrationForm');
+const popup = document.getElementById('popup');
+
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    popup.style.display = 'block';
+});
+
+
+function closePopup() {
+    popup.style.display = 'none';
+}
+
+
+ </script>
+
+
 </head>
 <body>
-    <h1>Hello, World! This is a simple website deployed with Ansible.</h1>
+    <div class="container">
+        <h2>Register Here</h2>
+        <form id="registrationForm">
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required><br><br>
+
+
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required><br><br>
+
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3>Registration Successful!</h3>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
 </body>
 </html>

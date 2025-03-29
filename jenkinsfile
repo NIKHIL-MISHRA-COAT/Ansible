@@ -2,25 +2,24 @@ pipeline {
     agent any
 
     environment {
-        ANSIBLE_PLAYBOOK = 'Ansible/playbooks/deploy_static_website.yml'  
-        ANSIBLE_HOSTS = 'Ansible/inventory/hosts.ini'      
+        ANSIBLE_PLAYBOOK = 'Ansible/playbooks/deploy_static_website.yml'
+        ANSIBLE_HOSTS = 'Ansible/inventory/hosts.ini'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                
                 git branch: 'main', url: 'https://github.com/NIKHIL-MISHRA-COAT/Ansible.git'
             }
         }
 
-        stage('Deploy with Ansible') {
+        stage('Deploy with Ansible (WSL)') {
             steps {
                 script {
-                    echo "Running Ansible Playbook..."
-                    ansiblePlaybook playbook: "${ANSIBLE_PLAYBOOK}",
-                                     inventory: "${ANSIBLE_HOSTS}",
-                                     colorized: true
+                    echo "Running Ansible Playbook within WSL..."
+                    bat """
+                        wsl ansible-playbook "${ANSIBLE_PLAYBOOK}" -i "${ANSIBLE_HOSTS}" --color
+                    """
                 }
             }
         }

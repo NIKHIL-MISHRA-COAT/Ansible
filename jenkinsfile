@@ -18,7 +18,7 @@ pipeline {
                 script {
                     echo "Running Ansible Playbook within WSL..."
                     bat """
-                        wsl ansible-playbook "${ANSIBLE_PLAYBOOK}" -i "${ANSIBLE_HOSTS}" --color
+                        wsl ansible-playbook "${ANSIBLE_PLAYBOOK}" -i "${ANSIBLE_HOSTS}" 
                     """
                 }
             }
